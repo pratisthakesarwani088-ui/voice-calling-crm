@@ -1,0 +1,35 @@
+# --- Web framework ---
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+
+# --- Settings / environment ---
+pydantic==2.10.4
+pydantic-settings==2.7.1
+python-dotenv==1.0.1
+email-validator==2.2.0
+
+# --- Database ---
+sqlalchemy==2.0.36
+alembic==1.14.0
+pymysql==1.1.1
+cryptography==44.0.0
+
+# --- Auth ---
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+# Pinned explicitly: bcrypt>=4.1 removed the internal attribute passlib
+# 1.7.4 uses for version detection, which produces a harmless but noisy
+# warning at import time. 4.0.1 is the latest release without that issue.
+bcrypt==4.0.1
+
+# --- File uploads (Module 5+) ---
+python-multipart==0.0.20
+
+# --- Data import (Module 7: CSV/Excel bulk upload) ---
+openpyxl==3.1.5
+
+# --- AI integration (Module 8: Gemini) ---
+# Calls the Gemini REST API directly over HTTP rather than depending on
+# a specific SDK version's method signatures — keeps this service small,
+# stable, and easy to reason about (see app/services/ai_service.py).
+httpx==0.28.1
