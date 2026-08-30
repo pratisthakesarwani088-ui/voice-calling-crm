@@ -118,7 +118,7 @@ async def start_call_route(
     return call_to_out(call)
 
 
-@router.post("/webhook", include_in_schema=False)
+@router.post("/webhook/vapi", include_in_schema=False)
 async def vapi_webhook_route(request: Request, db: Session = Depends(get_db)):
     """
     Receives Vapi's call-status/end-of-call events and updates the
