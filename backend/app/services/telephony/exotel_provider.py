@@ -1,10 +1,5 @@
 """
 Exotel telephony provider.
-
-`test_connection` uses the exact same endpoint/auth shape that was
-previously inline in app/services/settings_service.py (Module 11) -
-moved here, not duplicated, per Module 12's "optimize existing...
-to use the provider abstraction" requirement.
 """
 
 import httpx
@@ -12,11 +7,12 @@ import httpx
 from app.services.telephony.base import BaseTelephonyProvider
 
 _TIMEOUT_SECONDS = 10.0
+_EXOTEL_API_HOST = "https://api.exotel.com"
 
 
 class ExotelProvider(BaseTelephonyProvider):
     def _base_url(self) -> str:
-        return f"https://{self.account_id}.exotel.com/v1/Accounts/{self.account_id}"
+        return f"{_EXOTEL_API_HOST}/v1/Accounts/{self.account_id}"
 
     async def test_connection(self) -> tuple[bool, str]:
         url = self._base_url()
@@ -35,11 +31,6 @@ class ExotelProvider(BaseTelephonyProvider):
         return True, "Exotel connection successful."
 
     async def place_call(self, to_number: str) -> tuple[bool, str]:
-        """
-        Structurally correct per Exotel's REST API, not wired into an
-        active endpoint yet - Real Call (Module 9) already places calls
-        via Vapi; this exists for future telephony-provider-driven flows.
-        """
         if not self.caller_number:
             return False, "No caller number configured for Exotel."
 
